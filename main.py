@@ -11,20 +11,20 @@ root.resizable(False, False)
 
 top_frame = Frame(
     root,
-    bg="green",
+    bg="black",
     width=s.WIDTH,
     height=u.height_percentage(25)
 )
 
 left_frame = Frame(
     root,
-    bg="yellow",
+    bg="black",
     width=u.width_percentage(25),
     height=u.height_percentage(75)
 )
 center_frame = Frame(
     root,
-    bg="white",
+    bg="black",
     width=u.width_percentage(75),
     height=u.height_percentage(75)
 )

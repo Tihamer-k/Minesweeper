@@ -11,4 +11,10 @@ class Cell:
             location,
             text='Prueba'
         )
+        btn.bind('<Button-1>', self.left_click_actions)
         self.cell_btn_obj = btn
+
+    def left_click_actions(self, event):
+        print(event)
+        print("Me diste clic")
+

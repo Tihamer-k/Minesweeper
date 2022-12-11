@@ -1,4 +1,5 @@
 from tkinter import *
+from cell import Cell
 import settings as s
 import utils as u
 
@@ -33,6 +34,13 @@ left_frame.place(x=0, y=u.height_percentage(25))
 center_frame.place(
     x=u.width_percentage(25),
     y=u.height_percentage(25)
+)
+
+
+c1 = Cell()
+c1.create_btn_obj(center_frame)
+c1.cell_btn_obj.place(
+    x=0, y=0
 )
 
 # run the window

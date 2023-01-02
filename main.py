@@ -43,7 +43,11 @@ for x in range(s.GRID_SIZE):
         c.cell_btn_obj.grid(
             column=x, row=y
         )
-print(len(Cell.all))
+Cell.randomize_mines()
+# for c in Cell.all:
+#     print(c.is_mine)
+
+
 # c1 = Cell()
 # c1.create_btn_obj(center_frame)
 # c1.cell_btn_obj.grid(

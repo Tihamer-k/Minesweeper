@@ -38,12 +38,12 @@ center_frame.place(
 
 for x in range(s.GRID_SIZE):
     for y in range(s.GRID_SIZE):
-        c = Cell()
+        c = Cell(x, y)
         c.create_btn_obj(center_frame)
         c.cell_btn_obj.grid(
             column=x, row=y
         )
-
+print(len(Cell.all))
 # c1 = Cell()
 # c1.create_btn_obj(center_frame)
 # c1.cell_btn_obj.grid(

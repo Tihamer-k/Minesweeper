@@ -43,21 +43,14 @@ for x in range(s.GRID_SIZE):
         c.cell_btn_obj.grid(
             column=x, row=y
         )
+
+# label called
+Cell.create_cell_count_label(left_frame)
+Cell.cell_count_label_obj.place(
+    x=0, y=0
+)
+
 Cell.randomize_mines()
-# for c in Cell.all:
-#     print(c.is_mine)
-
-
-# c1 = Cell()
-# c1.create_btn_obj(center_frame)
-# c1.cell_btn_obj.grid(
-#     column=0, row=0
-# )
-# c2 = Cell()
-# c2.create_btn_obj(center_frame)
-# c2.cell_btn_obj.grid(
-#     column=1, row=1
-# )
 
 # run the window
 root.mainloop()

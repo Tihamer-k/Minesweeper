@@ -1,5 +1,5 @@
 import random
-from tkinter import Button
+from tkinter import Button, Label
 import settings as s
 
 
@@ -12,9 +12,12 @@ def get_cell_by_axis(x, y):
 
 class Cell:
     all = []
+    cell_count = s.CELL_COUNT
+    cell_count_label_obj = None
 
     def __init__(self, x, y, is_mine=False):
         self.is_mine = is_mine
+        self.is_opened = False
         self.cell_btn_obj = None
         self.x = x
         self.y = y
@@ -32,11 +35,26 @@ class Cell:
         btn.bind('<Button-3>', self.right_click_actions)
         self.cell_btn_obj = btn
 
+    @staticmethod
+    def create_cell_count_label(location):
+        label = Label(
+            location,
+            bg='black',
+            fg='white',
+            width=10,
+            text=f"Total celdas:\n{Cell.cell_count}",
+            font=("", 30)
+        )
+        Cell.cell_count_label_obj = label
+
     def left_click_actions(self, event):
         print(event)
         if self.is_mine:
             self.show_mine()
         else:
+            if self.surrounded_cells_length == 0:
+                for cell_obj in self.surrounded_cells():
+                    cell_obj.show_cell()
             self.show_cell()
 
     def surrounded_cells(self):
@@ -63,8 +81,16 @@ class Cell:
         return count
 
     def show_cell(self):
-        print("Hay ", self.surrounded_cells_length, " mina/s por acá")
-        self.cell_btn_obj.configure(text=self.surrounded_cells_length)
+        if not self.is_opened:
+            print(f"Hay {self.surrounded_cells_length} mina/s cerca")
+            self.cell_btn_obj.configure(text=self.surrounded_cells_length)
+            # Replace the text of cell count label
+            Cell.cell_count -= 1
+            if Cell.cell_count_label_obj:
+                Cell.cell_count_label_obj.configure(
+                    text=f"Total celdas:\n{Cell.cell_count}"
+                )
+        self.is_opened = True
 
     def show_mine(self):
         print("¡Booooom!")

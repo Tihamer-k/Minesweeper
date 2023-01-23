@@ -1,6 +1,8 @@
 import random
+import sys
 from tkinter import Button, Label
 import settings as s
+import ctypes as ct
 
 
 def get_cell_by_axis(x, y):
@@ -19,6 +21,7 @@ class Cell:
         self.is_mine = is_mine
         self.is_opened = False
         self.cell_btn_obj = None
+        self.is_mine_candidate = False
         self.x = x
         self.y = y
 
@@ -56,6 +59,18 @@ class Cell:
                 for cell_obj in self.surrounded_cells():
                     cell_obj.show_cell()
             self.show_cell()
+            # Show message if the user won
+            if Cell.cell_count == s.MINES_COUNT:
+                ct.windll.user32.MessageBoxW(
+                    0,
+                    "¡Felicidades! Ganaste el juego",
+                    "Game Over",
+                    0
+                )
+
+        # If cells is already opened, cancel click events
+        self.cell_btn_obj.unbind('<Button-1>')
+        self.cell_btn_obj.unbind('<Button-3>')
 
     def surrounded_cells(self):
         cells = [
@@ -90,16 +105,33 @@ class Cell:
                 Cell.cell_count_label_obj.configure(
                     text=f"Total celdas:\n{Cell.cell_count}"
                 )
+            self.cell_btn_obj.configure(
+                bg="SystemButtonFace"
+            )
         self.is_opened = True
 
     def show_mine(self):
         print("¡Booooom!")
         self.cell_btn_obj.configure(bg="red")
+        ct.windll.user32.MessageBoxW(
+            0,
+            "Booooom B***h!",
+            "Game Over",
+            0
+        )
+        sys.exit()
 
-    @staticmethod
-    def right_click_actions(event):
-        print(event)
-        print("soy el clic derecho")
+    def right_click_actions(self, event):
+        if not self.is_mine_candidate:
+            self.cell_btn_obj.configure(
+                bg='orange'
+            )
+            self.is_mine_candidate = True
+        else:
+            self.cell_btn_obj.configure(
+                bg="SystemButtonFace"
+            )
+            self.is_mine_candidate = False
 
     @staticmethod
     def randomize_mines():

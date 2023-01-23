@@ -17,6 +17,19 @@ top_frame = Frame(
     height=u.height_percentage(25)
 )
 
+game_title = Label(
+    top_frame,
+    bg="black",
+    fg="green",
+    text="Minesweeper Game by Tih",
+    font=("", 46)
+)
+
+game_title.place(
+    x=u.width_percentage(15),
+    y=0
+)
+
 left_frame = Frame(
     root,
     bg="black",
